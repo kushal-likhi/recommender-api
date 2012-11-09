@@ -7,7 +7,8 @@ class UrlMappings {
 			}
 		}
 
-		"/"(view:"/index")
+		"/"(controller: 'security', action: 'mainPageRelay')
+        "/dashboard"(controller: 'user', action: 'dashBoard')
 		"500"(view:'/error')
 		"404"(view:'/notFound')
 	}

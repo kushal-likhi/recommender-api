@@ -56,4 +56,11 @@ class SecurityController {
         redirect(uri: '/')
     }
 
+    def mainPageRelay() {
+        println "here"
+        println request.currentUser
+        if (request.currentUser) redirect(uri: '/dashboard')
+        render(view: "/index")
+    }
+
 }

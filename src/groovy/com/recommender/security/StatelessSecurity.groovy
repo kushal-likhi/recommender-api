@@ -76,6 +76,7 @@ class StatelessSecurity {
         value = Blowfish.encryptBase64(value.getBytes(), SECRET_KEY)
         Cookie cookie = new Cookie(SESSION_COOKIE_NAME, value)
         cookie.maxAge = SESSION_TIMEOUT
+        cookie.setPath('/')
         response.addCookie(cookie)
     }
 
@@ -88,15 +89,18 @@ class StatelessSecurity {
         value = Blowfish.encryptBase64(value.getBytes(), SECRET_KEY)
         Cookie cookie = new Cookie(REMEMBER_ME_COOKIE_NAME, value)
         cookie.maxAge = REMEMBER_ME_TIMEOUT
+        cookie.setPath('/')
         response.addCookie(cookie)
     }
 
     void destroySession(HttpServletResponse response){
         Cookie cookie = new Cookie(SESSION_COOKIE_NAME, "")
         cookie.maxAge = 0
+        cookie.setPath('/')
         response.addCookie(cookie)
         Cookie cookieRM = new Cookie(REMEMBER_ME_COOKIE_NAME, "")
-        cookie.maxAge = 0
+        cookieRM.maxAge = 0
+        cookieRM.setPath('/')
         response.addCookie(cookieRM)
     }
 }
