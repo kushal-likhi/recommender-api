@@ -1,0 +1,15 @@
+package com.recommender
+/**
+ * Created with IntelliJ IDEA.
+ * User: kushal
+ * Date: 9/11/12
+ * Time: 9:22 PM
+ * To change this template use File | Settings | File Templates.
+ */
+
+def ctx = context(ctype: 'javax.servlet.http.HttpServletRequest')
+
+contributor(ctx){
+      property name: 'currentUser', type: 'java.lang.String'
+      property name: 'rememberMeSet', type: 'java.lang.Boolean'
+}

@@ -10,7 +10,8 @@ class User {
     String firstName
     String lastName
 
-    Boolean enabled
+    Boolean enabled = false
+    Boolean isAdmin = false
 
     static hasMany = [applications: Application]
 
