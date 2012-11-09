@@ -1,0 +1,35 @@
+<!doctype html>
+<!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"><!--<![endif]-->
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="axleDefaultViewPort" content="body"/>
+        <title><g:layoutTitle default="Grails"/></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="shortcut icon" href="${resource(dir: 'images', file: 'favicon.ico')}" type="image/x-icon">
+        <link rel="apple-touch-icon" href="${resource(dir: 'images', file: 'apple-touch-icon.png')}">
+        <link rel="apple-touch-icon" sizes="114x114"
+              href="${resource(dir: 'images', file: 'apple-touch-icon-retina.png')}">
+        <link href='http://fonts.googleapis.com/css?family=Allerta' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Istok+Web' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="${resource(dir: 'css', file: 'mainSite.css')}" type="text/css">
+        <jq:resources/>
+        <script type="text/javascript" src="${resource(dir: 'js', file: 'jquery.axle.js')}"></script>
+        <link type="text/plain" rel="axle" href="${resource(dir: 'css', file: 'mainSite.axle')}"/>
+        <g:layoutHead/>
+    </head>
+
+    <body>
+        <img src="${resource(dir: 'images', file: 'stairway.jpg')}" id="bg_main"/>
+        <img id="logo" src="${resource(dir: 'images', file: 'logo.png')}"/>
+        <div id="footer_msg">&copy; Recommender API - All Rights Reserved.</div>
+        <div id="footer_share"><g:render template="/layouts/share"/></div>
+        <g:layoutBody/>
+        <div id="nav_bar"><g:render template="/layouts/navBar"/></div>
+    </body>
+</html>

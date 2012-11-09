@@ -1,0 +1,15 @@
+#logo{top:15; left:15; layer:10}
+
+#bg_main{top:0; left:0; width:w100%; height:h100%; layer:1}
+
+#footer_msg{bottom:10; left:15; width:500; layer:10}
+
+#footer_share{bottom:10; right:15; width:500; layer:10;text-align: right}
+
+#powered_by{width:w90%; left:w5%; bottom:60; height:100; layer:10;}
+
+#features{width:w90%; left:w5%; bottom:{{#powered_by}}h100% + {{#powered_by}}b100%; height:100; layer:10;}
+
+#mainText{width:w60%; left:w5%; bottom:{{#features}}h100% + {{#features}}b100%; height:h100% - {{#logo}}h100% - ({{#features}}h100% + {{#features}}b100%) - 20; layer:10;}
+
+#nav_bar{right:15; top:25; layer:10; }

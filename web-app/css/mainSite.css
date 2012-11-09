@@ -1,0 +1,56 @@
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    border: none;
+    min-width: 1024px;
+    min-height: 565px;
+    position: absolute;
+    font-family: 'PT Sans', Helvetica, Arial, sans-serif;
+    font-size: 12px;
+}
+
+#footer_msg{
+    font-size: 10px;
+    color:#555;
+}
+
+#nav_bar{
+    text-align: right !important;
+}
+
+#nav_bar span{
+    display: inline-block;
+    padding-left: 7px;
+    padding-right: 7px;
+}
+
+#nav_bar span a{
+    text-decoration: none;
+    color: #444;
+    font-size: 15px;
+    font-family: 'Istok Web';
+}
+
+div#nav_bar span a:hover{
+    color:black;
+    /*background: #555;*/
+}
+
+#features table td{
+    vertical-align: middle;
+    height: 30px;
+    width: 33%;
+    font-family: 'Allerta';
+    font-size: 11px;
+}
+
+#features table td img{
+    margin-right: 7px;
+}
+
+#mainText{
+    font-family: 'Allerta';
+    color:#000000;
+}

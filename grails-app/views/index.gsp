@@ -1,122 +1,70 @@
-<!doctype html>
 <html>
-	<head>
-		<meta name="layout" content="main"/>
-		<title>Welcome to Grails</title>
-		<style type="text/css" media="screen">
-			#status {
-				background-color: #eee;
-				border: .2em solid #fff;
-				margin: 2em 2em 1em;
-				padding: 1em;
-				width: 12em;
-				float: left;
-				-moz-box-shadow: 0px 0px 1.25em #ccc;
-				-webkit-box-shadow: 0px 0px 1.25em #ccc;
-				box-shadow: 0px 0px 1.25em #ccc;
-				-moz-border-radius: 0.6em;
-				-webkit-border-radius: 0.6em;
-				border-radius: 0.6em;
-			}
+    <head>
+        <meta name="layout" content="mainSite"/>
+        <title>Recommender API</title>
 
-			.ie6 #status {
-				display: inline; /* float double margin fix http://www.positioniseverything.net/explorer/doubled-margin.html */
-			}
+    </head>
 
-			#status ul {
-				font-size: 0.9em;
-				list-style-type: none;
-				margin-bottom: 0.6em;
-				padding: 0;
-			}
-            
-			#status li {
-				line-height: 1.3;
-			}
+    <body>
+        <div id="powered_by">
+            Powered By:
+            <table border="0" cellpadding="0" cellspacing="0" width="100%" height="90%" style="width:100%;height:90%">
+                <tr>
+                    <td width="14.28%" align="center"><img height="40px"
+                                                           src="${resource(dir: 'images', file: 'cloud.png')}" alt=""/>
+                    </td>
+                    <td width="14.28%" align="center"><img height="40px"
+                                                           src="${resource(dir: 'images', file: 'grails.png')}" alt=""/>
+                    </td>
+                    <td width="14.28%" align="center"><img height="40px"
+                                                           src="${resource(dir: 'images', file: 'mahaout.png')}"
+                                                           alt=""/></td>
+                    <td width="14.28%" align="center"><img height="35px"
+                                                           src="${resource(dir: 'images', file: 'hadoop.png')}" alt=""/>
+                    </td>
+                    <td width="14.28%" align="center"><img height="35px"
+                                                           src="${resource(dir: 'images', file: 'redis.png')}" alt=""/>
+                    </td>
+                    <td width="14.28%" align="center"><img height="40px"
+                                                           src="${resource(dir: 'images', file: 'mongo.png')}" alt=""/>
+                    </td>
+                    <td width="14.28%" align="center"><img height="30px"
+                                                           src="${resource(dir: 'images', file: 'rabbit.png')}" alt=""/>
+                    </td>
+                </tr>
+            </table>
+        </div>
 
-			#status h1 {
-				text-transform: uppercase;
-				font-size: 1.1em;
-				margin: 0 0 0.3em;
-			}
+        <div id="features">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%" height="90%" style="width:100%;height:90%">
+                <tr>
+                    <td><img src="${resource(dir:'images',file:'check.png')}" height="16px" alt=""/>Scalable Cluster over cloud</td>
+                    <td><img src="${resource(dir:'images',file:'check.png')}" height="16px" alt=""/>Fast response time for data pushes</td>
+                    <td><img src="${resource(dir:'images',file:'check.png')}" height="16px" alt=""/>Ability to select/change algorithms anytime as per your needs</td>
+                </tr>
+                <tr>
+                    <td><img src="${resource(dir:'images',file:'check.png')}" height="16px" alt=""/>Simple to use and implement</td>
+                    <td><img src="${resource(dir:'images',file:'check.png')}" height="16px" alt=""/>Dashboard to manage your account</td>
+                    <td><img src="${resource(dir:'images',file:'check.png')}" height="16px" alt=""/>Usage statistics</td>
+                </tr>
+                <tr>
+                    <td><img src="${resource(dir:'images',file:'check.png')}" height="16px" alt=""/>Ability to see and analyze faulty data pushes</td>
+                    <td><img src="${resource(dir:'images',file:'check.png')}" height="16px" alt=""/>Multiple applications per account possible</td>
+                    <td><img src="${resource(dir:'images',file:'check.png')}" height="16px" alt=""/>Can be used in: E-Commerce sites, dating sites etc.</td>
+                </tr>
+            </table>
+        </div>
 
-			#page-body {
-				margin: 2em 1em 1.25em 18em;
-			}
-
-			h2 {
-				margin-top: 1em;
-				margin-bottom: 0.3em;
-				font-size: 1em;
-			}
-
-			p {
-				line-height: 1.5;
-				margin: 0.25em 0;
-			}
-
-			#controller-list ul {
-				list-style-position: inside;
-			}
-
-			#controller-list li {
-				line-height: 1.3;
-				list-style-position: inside;
-				margin: 0.25em 0;
-			}
-
-			@media screen and (max-width: 480px) {
-				#status {
-					display: none;
-				}
-
-				#page-body {
-					margin: 0 1em 1em;
-				}
-
-				#page-body h1 {
-					margin-top: 0;
-				}
-			}
-		</style>
-	</head>
-	<body>
-		<a href="#page-body" class="skip"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-		<div id="status" role="complementary">
-			<h1>Application Status</h1>
-			<ul>
-				<li>App version: <g:meta name="app.version"/></li>
-				<li>Grails version: <g:meta name="app.grails.version"/></li>
-				<li>Groovy version: ${org.codehaus.groovy.runtime.InvokerHelper.getVersion()}</li>
-				<li>JVM version: ${System.getProperty('java.version')}</li>
-				<li>Reloading active: ${grails.util.Environment.reloadingAgentEnabled}</li>
-				<li>Controllers: ${grailsApplication.controllerClasses.size()}</li>
-				<li>Domains: ${grailsApplication.domainClasses.size()}</li>
-				<li>Services: ${grailsApplication.serviceClasses.size()}</li>
-				<li>Tag Libraries: ${grailsApplication.tagLibClasses.size()}</li>
-			</ul>
-			<h1>Installed Plugins</h1>
-			<ul>
-				<g:each var="plugin" in="${applicationContext.getBean('pluginManager').allPlugins}">
-					<li>${plugin.name} - ${plugin.version}</li>
-				</g:each>
-			</ul>
-		</div>
-		<div id="page-body" role="main">
-			<h1>Welcome to Grails</h1>
-			<p>Congratulations, you have successfully started your first Grails application! At the moment
-			   this is the default page, feel free to modify it to either redirect to a controller or display whatever
-			   content you may choose. Below is a list of controllers that are currently deployed in this application,
-			   click on each to execute its default action:</p>
-
-			<div id="controller-list" role="navigation">
-				<h2>Available Controllers:</h2>
-				<ul>
-					<g:each var="c" in="${grailsApplication.controllerClasses.sort { it.fullName } }">
-						<li class="controller"><g:link controller="${c.logicalPropertyName}">${c.fullName}</g:link></li>
-					</g:each>
-				</ul>
-			</div>
-		</div>
-	</body>
+        <div id="mainText">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%" height="100%" style="width:100%;height:100%">
+                <tr>
+                    <td valign="middle" style="vertical-align: middle;text-align: left" align="left">
+                        <h3 style="margin:0;padding: 0;font-family: 'Istok Web'">Climb The Ladder Of Success...</h3>
+                        <h3 style="margin: 0;padding: 0;font-family: 'Istok Web'">With Our...</h3>
+                        <h1 style="font-size: 34px;margin-top: 5px">RECOMMENDATION API</h1>
+                    </td>
+                </tr>
+                </table>
+        </div>
+    </body>
 </html>
