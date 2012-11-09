@@ -13,8 +13,21 @@ class User {
     Boolean enabled = false
     Boolean isAdmin = false
 
-    static hasMany = [applications: Application]
+    Date dateCreated
+    Date lastUpdated
 
+    static hasMany = [applications: Application]
+    static transients = ['name']
     static constraints = {
+        email(email: true, blank: false)
     }
+
+    static mapping = {
+        applications(cascade: 'all-delete-orphan')
+    }
+
+    String getName() {
+        return "${firstName} ${lastName ?: ''}"
+    }
+
 }

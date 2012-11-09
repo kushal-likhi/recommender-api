@@ -7,9 +7,16 @@ class FailedData {
     Integer weight
 
     String reason
+    Date dateCreated
+    Date lastUpdated
+
 
     static belongsTo = [application: Application]
 
     static constraints = {
+    }
+
+    String toString() {
+        "${eventSource},${eventTarget} : ${reason} "
     }
 }
