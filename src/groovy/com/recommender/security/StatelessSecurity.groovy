@@ -59,7 +59,6 @@ class StatelessSecurity {
             return tokens[0]
         } catch (e) {
             println e.message
-            println e.getStackTrace()
             return null
         }
     }

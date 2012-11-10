@@ -1,36 +1,22 @@
 package com.recommender.domain
 
-import com.recommender.command.UserCo
-
 class UserController {
+
+    def beforeInterceptor = [action: this.&auth]
 
     def userService
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST", createUser: 'POST', updateProfile: 'POST']
 
-
-    def signUp = {
-
-    }
-
-    def createUser(UserCo userCo) {
-        Map result = [:]
-        try {
-            result = userService.createUser(userCo)
-        } catch (Exception ex) {
-            result.message = "Error while creating user"
+    private auth() {
+        if (['list', 'create', 'update', 'delete', 'show'].contains(actionName) && !request.loggedInUser?.isAdmin) {
+            redirect(action: 'dashBoard')
+            return false
         }
-        flash.message = result.message
-        if (!result.user) {
-            redirect(action: 'signUp')
-            return
-        }
-        redirect(action: 'dashBoard')
     }
-
 
     def editProfile = {
-        User user = User.list().first()
+        User user = request.loggedInUser
         if (!user) {
             flash.message = "Please login/Sign Up"
             redirect(uri: '/')
@@ -40,7 +26,7 @@ class UserController {
     }
 
     def updateProfile = {
-        User userInstance = User.get(params.id)
+        User userInstance = request.loggedInUser
         if (userInstance) {
             bindData(userInstance, params, ['id', 'email'])
             if (userInstance.validate() && userInstance.save(flush: true)) {
@@ -60,7 +46,7 @@ class UserController {
 
 
     def dashBoard = {
-        User loggedInUser = User.list().first()
+        User loggedInUser = request.loggedInUser
         [loggedInUser: loggedInUser, apps: loggedInUser.applications]
     }
 
@@ -156,16 +142,6 @@ class UserController {
             flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), params.id])}"
             redirect(action: "list")
         }
-    }
-
-    def forgotPassword = {
-        try {
-            flash.message = userService.mailPassword(params.email)
-        } catch (Exception ex) {
-            log.error("UserController forgotPassword : " + ex)
-            flash.message = " Sorry! Please try again"
-        }
-        redirect(uri: '/')
     }
 
 }

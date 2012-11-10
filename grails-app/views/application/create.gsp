@@ -62,7 +62,6 @@
                                                                         value="${applicationInstance?.secretKey}"/>
                     </td>
                 </tr>
-                <g:hiddenField name="user.id" value="${com.recommender.domain.User.list()?.first()?.id}"/>
                 </tbody>
             </table>
 

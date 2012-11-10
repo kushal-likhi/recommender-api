@@ -37,7 +37,8 @@
 
     <body>
         <img src="${resource(dir: 'images', file: 'stairway.jpg')}" id="bg_main"/>
-        <img style="cursor: pointer" onclick="window.location.href='${createLink(uri:'/')}'" id="logo" src="${resource(dir: 'images', file: 'logo.png')}"/>
+        <img style="cursor: pointer" onclick="window.location.href = '${createLink(uri:'/')}'" id="logo"
+             src="${resource(dir: 'images', file: 'logo.png')}"/>
 
         <div id="footer_msg">&copy; Recommender API - All Rights Reserved.</div>
 
@@ -77,6 +78,7 @@
                             <input class="required" type="text" name="username" placeholder="Username"/><br/>
                             <input class="required" type="password" name="password" placeholder="Password"/><br/>
                             <input class="" type="checkbox" name="remember"/>&nbsp;Remember Me<br/>
+                            <span><a id="forgotPass" href="#">Forgot Password</a></span><br/><br/>
                             <button type="submit">Login</button>
                         </form>
                     </td>
@@ -93,7 +95,9 @@
                     <td align="center" valign="middle" style="text-align: center;vertical-align: middle;"
                         width="345px">
                         <div style="font-size: 10px;color:red;" id="registerErrorFlashError">&nbsp;</div>
-                        <form id="registerFormActual" action="${createLink(controller: 'security', action: 'createUser')}">
+
+                        <form id="registerFormActual"
+                              action="${createLink(controller: 'security', action: 'createUser')}">
                             <input class="required" type="text" name="firstName" placeholder="First Name"/><br/>
                             <input class="required" type="text" name="lastName" placeholder="Last Name"/><br/>
                             <input class="required email" type="text" name="email" placeholder="Email"/><br/>
@@ -103,10 +107,30 @@
                 </tr>
             </table>
         </div>
+
+        <div style="display: none;position: absolute;top:0;left:0" id="forgotPassword">
+            <div style="text-align: left;font-weight: bold;font-size: 18px">Forgot Password</div>
+            <g:form name="forgotPasswordForm" controller="security" action="forgotPassword">
+                <table border="0" cellpadding="0" cellspacing="0" width="500px" height="100px" class="popup gradient">
+                    <tr style="font-size: 14px;">
+                        <th>Email</th>
+                        <th>
+                            : <input type="text" name="email" value=""/>
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td style="text-align: center"><g:submitButton name="submit" value="Submit"/></td>
+                    </tr>
+                </table>
+            </g:form>
+        </div>
+
         <script type="text/javascript">
             window.loginFormHtml = jQuery("#loginForm").html();
             window.aboutPageHTML = jQuery("#aboutPage").html();
             window.apiDocHTML = jQuery("#apiDoc").html();
+            window.forgotPasswordHtml = jQuery("#forgotPassword").html();
             jQuery("#loginForm").remove();
             $("#loginNavItem").live('click', function () {
                 TINY.box.show({
@@ -146,6 +170,17 @@
                 });
                 return false;
             });
+            $("#forgotPass").live('click', function () {
+                TINY.box.show({
+                    html:window.forgotPasswordHtml,
+                    animate:true,
+                    close:true,
+                    openjs:function () {
+                    }
+                });
+                return false;
+            });
+
             <g:if test="${flash.userInvalid}">
             TINY.box.show({
                 html:window.loginFormHtml,
@@ -167,6 +202,13 @@
             <g:if test="${flash.userCreateMessage}">
             TINY.box.show({
                 html:"${flash.userCreateMessage.encodeAsJavaScript()}",
+                animate:true,
+                close:true
+            });
+            </g:if>
+            <g:if test="${flash.forgotPasswordMsg}">
+            TINY.box.show({
+                html:"${flash.forgotPasswordMsg.encodeAsJavaScript()}",
                 animate:true,
                 close:true
             });

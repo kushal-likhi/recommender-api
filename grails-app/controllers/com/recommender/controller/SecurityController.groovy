@@ -1,13 +1,13 @@
 package com.recommender.controller
 
-import com.recommender.security.StatelessSecurity
 import com.recommender.domain.User
+import com.recommender.security.StatelessSecurity
 import cr.co.arquetipos.crypto.Blowfish
-
 
 class SecurityController {
 
     def ourMailService
+    def userService
 
     def logout() {
         use(StatelessSecurity) {request.destroyUserSession(response)}
@@ -34,7 +34,7 @@ class SecurityController {
                 lastName: lastName,
                 password: "Pending"
         ).save()) {
-            ourMailService.sendMail(firstName, "Account Activation Link", "authLink", [
+            ourMailService.sendMail(email, "Account Activation Link", "authLink", [
                     name: "${firstName} ${lastName}",
                     link: "${createLink(controller: 'security', action: 'activate', params: [token: email.encodeAsBase64(), auth: Blowfish.encryptBase64(email, email.encodeAsSHA256())])}"
             ])
@@ -57,10 +57,18 @@ class SecurityController {
     }
 
     def mainPageRelay() {
-        println "here"
-        println request.currentUser
         if (request.currentUser) redirect(uri: '/dashboard')
         render(view: "/index")
+    }
+
+    def forgotPassword = {
+        try {
+            flash.forgotPasswordMsg = userService.mailPassword(params.email)
+        } catch (Exception ex) {
+            log.error("UserController forgotPassword : " + ex)
+            flash.forgotPasswordMsg = " Sorry! Please try again"
+        }
+        redirect(uri: '/')
     }
 
 }

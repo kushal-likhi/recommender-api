@@ -13,14 +13,14 @@ class ApplicationController {
     }
 
     def list = {
-        User user = User.list().first()
+        User user = request.loggedInUser
         if (!user) {
             redirect(uri: '/')
             return
         }
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
         List applications = Application.createCriteria().list(params) {
-            if (!user.admin) {
+            if (!user.isAdmin) {
                 eq('user', user)
             }
         }
@@ -35,7 +35,7 @@ class ApplicationController {
 
     def save = {
         def applicationInstance = new Application(params)
-        User user = applicationInstance.user
+        User user = request.loggedInUser
         user.addToApplications(applicationInstance)
         if (user.save(flush: true)) {
             flash.message = "${message(code: 'default.created.message', args: [message(code: 'application.label', default: 'Application'), applicationInstance])}"
@@ -80,7 +80,7 @@ class ApplicationController {
                     return
                 }
             }
-            applicationInstance.properties = params
+            bindData(applicationInstance, params, ['id', 'user.id'])
             if (!applicationInstance.hasErrors() && applicationInstance.save(flush: true)) {
                 flash.message = "${message(code: 'default.updated.message', args: [message(code: 'application.label', default: 'Application'), applicationInstance])}"
                 redirect(action: "show", id: applicationInstance.id)
@@ -97,7 +97,7 @@ class ApplicationController {
 
     def delete = {
         def applicationInstance = Application.get(params.id)
-        if (applicationInstance) {
+        if (applicationInstance && (applicationInstance.user == request.loggedInUser || request.loggedInUser.isAdmin())) {
             try {
                 applicationInstance.delete(flush: true)
                 flash.message = "${message(code: 'default.deleted.message', args: [message(code: 'application.label', default: 'Application'), params.id])}"
