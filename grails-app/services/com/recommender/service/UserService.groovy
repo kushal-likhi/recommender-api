@@ -6,6 +6,8 @@ import org.apache.commons.lang.RandomStringUtils
 
 class UserService {
 
+    def ourMailService
+
     Map createUser(UserCo userCo) {
         Map result = [message: 'Please enter valid data']
         if (userCo.validate()) {
@@ -26,9 +28,10 @@ class UserService {
         if (email) {
             User user = User.findByEmailAndEnabled(email, true)
             if (user) {
-                user.password = RandomStringUtils.random(8)
+                String password = RandomStringUtils.randomNumeric(5)
+                user.password = password.encodeAsSHA256()
                 user.save(flush: true, failOnError: true)
-                //email
+                ourMailService.sendMail(user.email, "Password Recovery", 'forgotPassword', [name: user.name, userName: user.email, newPassword: password])
                 message = "Password has been emailed on your email id"
             }
         }

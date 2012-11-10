@@ -158,14 +158,4 @@ class UserController {
         }
     }
 
-    def forgotPassword = {
-        try {
-            flash.message = userService.mailPassword(params.email)
-        } catch (Exception ex) {
-            log.error("UserController forgotPassword : " + ex)
-            flash.message = " Sorry! Please try again"
-        }
-        redirect(uri: '/')
-    }
-
 }

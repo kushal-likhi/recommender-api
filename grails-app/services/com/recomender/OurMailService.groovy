@@ -7,10 +7,10 @@ class OurMailService {
     def groovyPageRenderer
     def mailService
 
-    void sendMail(String _to, String _subject, String template, Map model) {
+    void sendMail(String emailTo, String emailSubject, String template, Map model) {
         mailService.sendMail {
-            to(_to)
-            subject(_subject)
+            to emailTo
+            subject emailSubject
             html(groovyPageRenderer.render(template: "/mailTemplate/${template}", model: model))
         }
     }
