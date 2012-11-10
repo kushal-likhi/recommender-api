@@ -17,6 +17,7 @@ class User {
     static hasMany = [applications: Application]
     static transients = ['authorities', 'name']
     static constraints = {
+        email(email: true, blank: false)
     }
 
     static mapping = {

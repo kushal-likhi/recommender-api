@@ -2,6 +2,7 @@ package com.recommender.service
 
 import com.recommender.command.UserCo
 import com.recommender.domain.User
+import org.apache.commons.lang.RandomStringUtils
 
 class UserService {
 
@@ -19,4 +20,19 @@ class UserService {
         }
         return result
     }
+
+    String mailPassword(String email) {
+        String message = "User with given email id doesn't exist"
+        if (email) {
+            User user = User.findByEmailAndEnabled(email, true)
+            if (user) {
+                user.password = RandomStringUtils.random(8)
+                user.save(flush: true, failOnError: true)
+                //email
+                message = "Password has been emailed on your email id"
+            }
+        }
+        return message
+    }
+
 }
