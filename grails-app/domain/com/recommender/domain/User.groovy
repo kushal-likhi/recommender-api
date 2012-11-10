@@ -11,9 +11,28 @@ class User {
     String lastName
 
     Boolean enabled
+    Date dateCreated
+    Date lastUpdated
 
     static hasMany = [applications: Application]
-
+    static transients = ['authorities', 'name']
     static constraints = {
     }
+
+    transient boolean isAdmin() {
+        authorities.contains("ROLE_ADMIN")
+    }
+
+    List getAuthorities() {
+        List roles = []
+        if (this.id) {
+            roles = UserRole.findAllByUser(this)*.role*.authority
+        }
+        return roles
+    }
+
+    String getName() {
+        return "${firstName} ${lastName ?: ''}"
+    }
+
 }
