@@ -1,33 +1,19 @@
 package com.recommender.domain
 
-import com.recommender.command.UserCo
-
 class UserController {
+
+    def beforeInterceptor = [action: this.&auth]
 
     def userService
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST", createUser: 'POST', updateProfile: 'POST']
 
-
-    def signUp = {
-
-    }
-
-    def createUser(UserCo userCo) {
-        Map result = [:]
-        try {
-            result = userService.createUser(userCo)
-        } catch (Exception ex) {
-            result.message = "Error while creating user"
+    private auth() {
+        if (['list', 'create', 'update', 'delete', 'show'].contains(actionName) && !request.loggedInUser?.isAdmin) {
+            redirect(action: 'dashBoard')
+            return false
         }
-        flash.message = result.message
-        if (!result.user) {
-            redirect(action: 'signUp')
-            return
-        }
-        redirect(action: 'dashBoard')
     }
-
 
     def editProfile = {
         User user = request.loggedInUser
@@ -60,7 +46,7 @@ class UserController {
 
 
     def dashBoard = {
-        User loggedInUser = User.list().first()
+        User loggedInUser = request.loggedInUser
         [loggedInUser: loggedInUser, apps: loggedInUser.applications]
     }
 

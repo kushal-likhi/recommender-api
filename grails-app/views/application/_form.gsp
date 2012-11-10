@@ -36,12 +36,4 @@
     <g:textField name="secretKey" value="${applicationInstance?.secretKey}"/>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: applicationInstance, field: 'user', 'error')} ">
-    <label for="user">
-        <g:message code="application.user.label" default="User"/>
-
-    </label>
-    <g:select name="user.id" from="${com.recommender.domain.User.list()}" optionKey="id"
-              value="${applicationInstance?.user?.id}"/>
-</div>
 

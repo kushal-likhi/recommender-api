@@ -15,6 +15,10 @@ class ApplicationSecurityFilters {
                         request.loggedInUser = User.get(new ObjectId(request.currentUser))
                     }
                 }
+                if (!request.loggedInUser && ['user', 'application', 'failedData', 'util'].contains(controllerName)) {
+                    redirect(uri: '/')
+                    return false
+                }
             }
             after = { Map model ->
 

@@ -97,7 +97,7 @@ class ApplicationController {
 
     def delete = {
         def applicationInstance = Application.get(params.id)
-        if (applicationInstance && applicationInstance.user == request.loggedInUser) {
+        if (applicationInstance && (applicationInstance.user == request.loggedInUser || request.loggedInUser.isAdmin())) {
             try {
                 applicationInstance.delete(flush: true)
                 flash.message = "${message(code: 'default.deleted.message', args: [message(code: 'application.label', default: 'Application'), params.id])}"

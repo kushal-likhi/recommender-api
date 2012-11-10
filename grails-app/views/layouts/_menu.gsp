@@ -26,4 +26,7 @@
             </li>
         </g:isAdmin>
     </ul>
+
+    <div style="text-align: right"><a href="${createLink(controller: 'security', action: 'logout')}"
+                                      class="logout">Logout</a></div>
 </div>
