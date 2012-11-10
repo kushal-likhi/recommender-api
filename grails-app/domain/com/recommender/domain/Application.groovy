@@ -21,6 +21,7 @@ class Application {
     }
 
     static mapping = {
+        secretKey(type: 'text')
         failedEntries(cascade: 'all-delete-orphan')
     }
 }

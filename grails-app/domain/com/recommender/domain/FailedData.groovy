@@ -15,4 +15,8 @@ class FailedData {
 
     static constraints = {
     }
+
+    String toString() {
+        "${eventSource},${eventTarget} : ${reason} "
+    }
 }

@@ -10,14 +10,6 @@
 
 <body>
 <div class="block">
-    <div class="block_head">
-        <div class="bheadl"></div>
-
-        <div class="bheadr"></div>
-
-        <h2><g:message code="default.create.label" args="[entityName]"/></h2>
-    </div>
-
     <div class="block_content">
         <g:hasErrors bean="${applicationInstance}">
             <div class="error-msg custom-msg">
@@ -29,6 +21,18 @@
             <g:hiddenField name="version" value="${applicationInstance?.version}"/>
             <table cellpadding="0" cellspacing="0" width="100%">
                 <tbody>
+
+                <tr class="prop">
+                    <td valign="top" class="name">
+                        <label for="name"><g:message code="application.name.label"
+                                                     default="Name"/></label>
+                    </td>
+                    <td valign="top"
+                        class="value ${hasErrors(bean: applicationInstance, field: 'name', 'errors')}">
+                        <g:textField name="name" value="${applicationInstance?.name}"/>
+                    </td>
+                </tr>
+
 
                 <tr class="prop">
                     <td valign="top" class="name">
@@ -45,45 +49,14 @@
 
                 <tr class="prop">
                     <td valign="top" class="name">
-                        <label for="failedEntries"><g:message code="application.failedEntries.label"
-                                                              default="Failed Entries"/></label>
-                    </td>
-                    <td valign="top"
-                        class="value ${hasErrors(bean: applicationInstance, field: 'failedEntries', 'errors')}">
-
-                        <ul>
-                            <g:each in="${applicationInstance?.failedEntries ?}" var="f">
-                                <li><g:link controller="failedData" action="show"
-                                            id="${f.id}">${f?.encodeAsHTML()}</g:link></li>
-                            </g:each>
-                        </ul>
-                        <g:link controller="failedData" action="create"
-                                params="['application.id': applicationInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'failedData.label', default: 'FailedData')])}</g:link>
-
-                    </td>
-                </tr>
-
-                <tr class="prop">
-                    <td valign="top" class="name">
                         <label for="secretKey"><g:message code="application.secretKey.label"
                                                           default="Secret Key"/></label>
                     </td>
                     <td valign="top"
                         class="value ${hasErrors(bean: applicationInstance, field: 'secretKey', 'errors')}">
-                        <g:textField name="secretKey" value="${applicationInstance?.secretKey}"/>
+                        ${applicationInstance?.secretKey}"
                     </td>
                 </tr>
-
-                <tr class="prop">
-                    <td valign="top" class="name">
-                        <label for="user"><g:message code="application.user.label" default="User"/></label>
-                    </td>
-                    <td valign="top" class="value ${hasErrors(bean: applicationInstance, field: 'user', 'errors')}">
-                        <g:select name="user.id" from="${com.recommender.domain.User.list()}" optionKey="id"
-                                  value="${applicationInstance?.user?.id}"/>
-                    </td>
-                </tr>
-
                 </tbody>
             </table>
 

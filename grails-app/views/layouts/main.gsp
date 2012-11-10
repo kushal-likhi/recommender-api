@@ -26,6 +26,9 @@
     <div style="text-align: right;margin-right: 20px;margin-bottom: 5px;"><b>Welcome <g:loggedInUserName/>!</b></div>
 </div>
 <g:render template="/layouts/menu"/>
+<g:if test="${flash.message}">
+    <div style="border: 1px solid #008ee8;text-align: left;margin-left: 20px;margin-right: 20px; color: #00008B;">${flash.message}</div>
+</g:if>
 <g:layoutBody/>
 <div id="footer_msg">&copy; Recommender API - All Rights Reserved.</div>
 

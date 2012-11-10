@@ -19,6 +19,10 @@ class User {
     static constraints = {
     }
 
+    static mapping = {
+        applications(cascade: 'all-delete-orphan')
+    }
+
     transient boolean isAdmin() {
         authorities.contains("ROLE_ADMIN")
     }

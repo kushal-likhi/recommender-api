@@ -8,9 +8,23 @@ class ApplicationController {
         redirect(action: "list", params: params)
     }
 
+    def stats = {
+
+    }
+
     def list = {
+        User user = User.list().first()
+        if (!user) {
+            redirect(uri: '/')
+            return
+        }
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
-        [applicationInstanceList: Application.list(params), applicationInstanceTotal: Application.count()]
+        List applications = Application.createCriteria().list(params) {
+            if (!user.admin) {
+                eq('user', user)
+            }
+        }
+        [applicationInstanceList: applications, applicationInstanceTotal: applications?.totalCount]
     }
 
     def create = {

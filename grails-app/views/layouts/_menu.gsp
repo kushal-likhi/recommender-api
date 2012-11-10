@@ -14,6 +14,9 @@
         <li>
             <g:link controller="application" action="create">Create New App</g:link>
         </li>
+        <li>
+            <g:link controller="user" action="editProfile">Edit Profile</g:link>
+        </li>
 
         <g:isAdmin>
             <li><a href="#">Admin</a>

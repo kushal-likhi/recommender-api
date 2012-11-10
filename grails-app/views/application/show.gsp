@@ -11,40 +11,31 @@
 <body>
 
 <div class="block">
-    <div class="block_head">
-        <div class="bheadl"></div>
-
-        <div class="bheadr"></div>
-
-        <h2><g:message code="default.show.label" args="[entityName]"/></h2>
-        <ul>
-            <li><g:link class="create" action="create">Add Application</g:link></li>
-        </ul>
-    </div>
-
     <div class="block_content">
         <table cellpadding="0" cellspacing="0" width="100%">
             <tbody>
+
+            <g:isAdmin>
+                <tr class="prop">
+                    <td valign="top" class="name"><g:message code="application.user.label" default="User"/></td>
+
+                    <td valign="top" class="value"><g:link controller="user" action="show"
+                                                           id="${applicationInstance?.user?.id}">${applicationInstance?.user?.name}</g:link></td>
+
+                </tr>
+            </g:isAdmin>
+
+            <tr class="prop">
+                <td valign="top" class="name"><g:message code="application.name.label" default="Name"/></td>
+
+                <td valign="top" class="value">${applicationInstance?.name}</td>
+
+            </tr>
 
             <tr class="prop">
                 <td valign="top" class="name"><g:message code="application.algorithm.label" default="Algorithm"/></td>
 
                 <td valign="top" class="value">${applicationInstance?.algorithm?.encodeAsHTML()}</td>
-
-            </tr>
-
-            <tr class="prop">
-                <td valign="top" class="name"><g:message code="application.failedEntries.label"
-                                                         default="Failed Entries"/></td>
-
-                <td valign="top" style="text-align: left;" class="value">
-                    <ul>
-                        <g:each in="${applicationInstance.failedEntries}" var="f">
-                            <li><g:link controller="failedData" action="show"
-                                        id="${f.id}">${f?.encodeAsHTML()}</g:link></li>
-                        </g:each>
-                    </ul>
-                </td>
 
             </tr>
 
@@ -56,11 +47,19 @@
             </tr>
 
             <tr class="prop">
-                <td valign="top" class="name"><g:message code="application.user.label" default="User"/></td>
+                <td valign="top" class="name">
+                    <label for="failedEntries"><g:message code="application.failedEntries.label"
+                                                          default="Failed Entries"/></label>
+                </td>
+                <td valign="top"
+                    class="value ${hasErrors(bean: applicationInstance, field: 'failedEntries', 'errors')}">
 
-                <td valign="top" class="value"><g:link controller="user" action="show"
-                                                       id="${applicationInstance?.user?.id}">${applicationInstance?.user?.encodeAsHTML()}</g:link></td>
-
+                    <ul>
+                        <g:each in="${applicationInstance?.failedEntries ?}" var="f">
+                            <li>${f?.toString()}</li>
+                        </g:each>
+                    </ul>
+                </td>
             </tr>
 
             </tbody>

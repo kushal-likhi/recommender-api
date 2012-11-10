@@ -11,18 +11,6 @@
 <body>
 
 <div class="block">
-    <div class="block_head">
-        <div class="bheadl"></div>
-
-        <div class="bheadr"></div>
-
-        <h2><g:message code="default.list.label" args="[entityName]"/></h2>
-
-        <ul>
-            <li><g:link class="create" action="create">Add Application</g:link></li>
-        </ul>
-    </div>
-
     <div class="block_content">
         <table cellpadding="0" cellspacing="0" width="100%">
             <thead>

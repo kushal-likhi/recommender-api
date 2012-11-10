@@ -1,8 +1,68 @@
 package com.recommender.domain
 
+import com.recommender.command.UserCo
+
 class UserController {
 
-    static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
+    def userService
+
+    static allowedMethods = [save: "POST", update: "POST", delete: "POST", createUser: 'POST', updateProfile: 'POST']
+
+
+    def signUp = {
+
+    }
+
+    def createUser(UserCo userCo) {
+        Map result = [:]
+        try {
+            result = userService.createUser(userCo)
+        } catch (Exception ex) {
+            result.message = "Error while creating user"
+        }
+        flash.message = result.message
+        if (!result.user) {
+            redirect(action: 'signUp')
+            return
+        }
+        redirect(action: 'dashBoard')
+    }
+
+
+    def editProfile = {
+        User user = User.list().first()
+        if (!user) {
+            flash.message = "Please login/Sign Up"
+            redirect(uri: '/')
+            return
+        }
+        [userInstance: user]
+    }
+
+    def updateProfile = {
+        User userInstance = User.get(params.id)
+        if (userInstance) {
+            bindData(userInstance, params, ['id', 'email'])
+            if (userInstance.validate() && userInstance.save(flush: true)) {
+                flash.message = "Updated Profile Successfully"
+                redirect(action: "dashBoard")
+                return
+            }
+            else {
+                flash.message = "Please enter valid entries"
+                render(view: "editProfile")
+            }
+        }
+        else {
+            redirect(uri: '/')
+        }
+    }
+
+
+    def dashBoard = {
+        User loggedInUser = User.list().first()
+        [loggedInUser: loggedInUser, apps: loggedInUser.applications]
+    }
 
     def index = {
         redirect(action: "list", params: params)
