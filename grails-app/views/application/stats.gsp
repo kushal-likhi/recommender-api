@@ -12,8 +12,12 @@
 <div class="block">
     <div class="block_head">
         <div class="bheadl"></div>
+
         <div class="bheadr"></div>
+
+        <h1>Statistics</h1>
     </div>
+
     <div class="block_content">
         Applications Count : 'Test'<br/><br/>
         Applications Count2  : "test"

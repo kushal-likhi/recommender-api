@@ -13,8 +13,12 @@
 <div class="block">
     <div class="block_head">
         <div class="bheadl"></div>
+
         <div class="bheadr"></div>
+
+        <h1>Applications</h1>
     </div>
+
     <div class="block_content">
         <table cellpadding="0" cellspacing="0" width="100%">
             <thead>
@@ -26,9 +30,9 @@
 
                 <g:sortableColumn property="secretKey"
                                   title="${message(code: 'application.secretKey.label', default: 'Secret Key')}"/>
-
-                <th><g:message code="application.user.label" default="User"/></th>
-
+                <g:isAdmin>
+                    <th><g:message code="application.user.label" default="User"/></th>
+                </g:isAdmin>
             </tr>
             </thead>
             <tbody>
@@ -40,9 +44,10 @@
 
                     <td>${fieldValue(bean: applicationInstance, field: "secretKey")}</td>
 
-                    <td><g:link controller="user" action="show"
-                                id="${applicationInstance?.user?.id}">${applicationInstance?.user?.encodeAsHTML()}</g:link></td>
-
+                    <g:isAdmin>
+                        <td><g:link controller="user" action="show"
+                                    id="${applicationInstance?.user?.id}">${applicationInstance?.user?.name}</g:link></td>
+                    </g:isAdmin>
                 </tr>
             </g:each>
             </tbody>

@@ -12,8 +12,12 @@
 <div class="block">
     <div class="block_head">
         <div class="bheadl"></div>
+
         <div class="bheadr"></div>
+
+        <h1>Create Application</h1>
     </div>
+
     <div class="block_content">
         <g:hasErrors bean="${applicationInstance}">
             <div class="error-msg custom-msg">
