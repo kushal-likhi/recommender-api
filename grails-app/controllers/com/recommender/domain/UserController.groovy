@@ -30,7 +30,7 @@ class UserController {
 
 
     def editProfile = {
-        User user = User.list().first()
+        User user = request.loggedInUser
         if (!user) {
             flash.message = "Please login/Sign Up"
             redirect(uri: '/')
@@ -40,7 +40,7 @@ class UserController {
     }
 
     def updateProfile = {
-        User userInstance = User.get(params.id)
+        User userInstance = request.loggedInUser
         if (userInstance) {
             bindData(userInstance, params, ['id', 'email'])
             if (userInstance.validate() && userInstance.save(flush: true)) {
