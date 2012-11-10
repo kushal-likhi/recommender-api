@@ -4,7 +4,7 @@ class FailedData {
 
     String eventSource
     String eventTarget
-    Integer weight
+    String weight
 
     String reason
     Date dateCreated
@@ -14,6 +14,10 @@ class FailedData {
     static belongsTo = [application: Application]
 
     static constraints = {
+        eventSource(nullable: true, blank: true)
+        eventTarget(nullable: true, blank: true)
+        weight(nullable: true, blank: true)
+        reason(nullable: true, blank: true)
     }
 
     String toString() {

@@ -37,7 +37,7 @@
 
     <body>
         <img src="${resource(dir: 'images', file: 'stairway.jpg')}" id="bg_main"/>
-        <img id="logo" src="${resource(dir: 'images', file: 'logo.png')}"/>
+        <img style="cursor: pointer" onclick="window.location.href='${createLink(uri:'/')}'" id="logo" src="${resource(dir: 'images', file: 'logo.png')}"/>
 
         <div id="footer_msg">&copy; Recommender API - All Rights Reserved.</div>
 

@@ -8,8 +8,10 @@
 
 #powered_by{width:w90%; left:w5%; bottom:60; height:100; layer:10;}
 
-#features{width:w90%; left:w5%; bottom:{{#powered_by}}h100% + {{#powered_by}}b100%; height:100; layer:10;}
+#features{width:w90%; left:w5%; bottom:{{#powered_by}}h100% + {{#powered_by}}b100%; height:100; layer:10; border-top: 1px solid #BBB;}
 
 #mainText{width:w60%; left:w5%; bottom:{{#features}}h100% + {{#features}}b100%; height:h100% - {{#logo}}h100% - ({{#features}}h100% + {{#features}}b100%) - 20; layer:10;}
 
 #nav_bar{right:15; top:25; layer:10; }
+
+#mainBox{width:w60%; left:w5%;height:h100% - {{#logo}}h100% - 70; bottom:50; layer:10}

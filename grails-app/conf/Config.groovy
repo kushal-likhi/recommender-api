@@ -112,6 +112,6 @@ rabbitmq {
         hostname = 'localhost'
     }
     queues = {
-
+        unsavedEvents autoDelete: false, durable: true, exclusive: false
     }
 }

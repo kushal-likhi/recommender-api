@@ -1,4 +1,4 @@
-package com.recomender
+package com.recommender.service
 
 class OurMailService {
 
