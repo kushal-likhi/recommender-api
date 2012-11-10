@@ -10,9 +10,15 @@
 
 <body>
 <div class="block">
+    <div class="block_head">
+        <div class="bheadl"></div>
+        <div class="bheadr"></div>
+    </div>
     <div class="block_content">
     </div>
-</div>
+    <div class="bendl"></div>
+
+    <div class="bendr"></div>
 </div>
 </body>
 </html>

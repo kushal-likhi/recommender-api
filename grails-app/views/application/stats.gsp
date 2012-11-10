@@ -10,6 +10,10 @@
 
 <body>
 <div class="block">
+    <div class="block_head">
+        <div class="bheadl"></div>
+        <div class="bheadr"></div>
+    </div>
     <div class="block_content">
         Applications Count : 'Test'<br/><br/>
         Applications Count2  : "test"

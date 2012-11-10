@@ -3,7 +3,7 @@
 
     <div class="hdrr"></div>
 
-    <h1>&nbsp;</h1>
+    <h1><g:link controller="user" action="dashBoard">Dashboard</g:link>&nbsp;</h1>
     <ul id="nav">
         <li>
             <g:link controller="application" action="Stats">Stats</g:link>

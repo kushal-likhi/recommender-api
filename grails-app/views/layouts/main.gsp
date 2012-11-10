@@ -19,6 +19,7 @@
 </head>
 
 <body>
+<div style="width: 90%;margin: 0 auto;">
 <div id="grailsLogo" role="banner" style="margin-top: 10px;"><a href="${createLink(uri: '/')}"><img id="logo"
                                                                                                     src="${resource(dir: 'images', file: 'logo.png')}"/>
 </a>
@@ -35,5 +36,6 @@
 <div id="spinner" class="spinner" style="display:none;"><g:message code="spinner.alt" default="Loading&hellip;"/></div>
 <g:javascript library="application"/>
 <r:layoutResources/>
+</div>
 </body>
 </html>
