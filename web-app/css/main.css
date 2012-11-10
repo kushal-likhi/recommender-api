@@ -613,7 +613,7 @@ a:hover {
 	float: right;
 	width: 16px;
 	height: 16px;
-	background: url(../images/close.png) 0 0 no-repeat;
+	background: url(../images/close_tb.png) 0 0 no-repeat;
 	margin-top: 2px;
 	cursor: pointer;
 	-moz-opacity: 0.7;

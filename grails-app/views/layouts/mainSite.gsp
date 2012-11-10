@@ -17,19 +17,33 @@
         <link href='http://fonts.googleapis.com/css?family=Allerta' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Istok+Web' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" href="${resource(dir: 'css', file: 'mainSite.css')}" type="text/css">
         <jq:resources/>
         <script type="text/javascript" src="${resource(dir: 'js', file: 'jquery.axle.js')}"></script>
+        <script type="text/javascript" src="${resource(dir: 'js', file: 'jquery.placeholder.js')}"></script>
+        <script type="text/javascript" src="${resource(dir: 'js', file: 'jquery.validate.js')}"></script>
+        <script type="text/javascript" src="${resource(dir: 'js', file: 'tinybox.js')}"></script>
+        <link type="text/css" rel="stylesheet" href="${resource(dir: 'css', file: 'tinybox2.css')}"/>
+        <link rel="stylesheet" href="${resource(dir: 'css', file: 'mainSite.css')}" type="text/css">
         <link type="text/plain" rel="axle" href="${resource(dir: 'css', file: 'mainSite.axle')}"/>
         <g:layoutHead/>
+        <!--[if gte IE 9]>
+        <style type="text/css">
+            .gradient {
+                filter: none;
+            }
+        </style>
+        <![endif]-->
     </head>
 
     <body>
         <img src="${resource(dir: 'images', file: 'stairway.jpg')}" id="bg_main"/>
         <img id="logo" src="${resource(dir: 'images', file: 'logo.png')}"/>
+
         <div id="footer_msg">&copy; Recommender API - All Rights Reserved.</div>
+
         <div id="footer_share"><g:render template="/layouts/share"/></div>
-        <g:layoutBody/>
+
         <div id="nav_bar"><g:render template="/layouts/navBar"/></div>
+        <g:layoutBody/>
     </body>
 </html>
