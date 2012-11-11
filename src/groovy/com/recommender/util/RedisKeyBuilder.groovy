@@ -12,7 +12,7 @@ class RedisKeyBuilder {
     }
 
     public static String buildEventFailedToBeReceivedKey(String appId) {
-        "rawSaved_${appId}"
+        "rawFailed_${appId}"
     }
 
     public static String buildRecommendationRequestKey(String appId) {

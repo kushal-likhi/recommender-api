@@ -64,9 +64,16 @@
             </tr>
 
             <tr class="prop">
+                <td valign="top" class="name"><g:message code="application.appKey.label" default="App Key"/></td>
+
+                <td valign="top" class="value">${fieldValue(bean: applicationInstance, field: "id")}</td>
+
+            </tr>
+
+            <tr class="prop">
                 <td valign="top" class="name"><g:message code="application.algorithm.label" default="Algorithm"/></td>
 
-                <td valign="top" class="value">${applicationInstance?.algorithm?.encodeAsHTML()}</td>
+                <td valign="top" class="value">${applicationInstance?.algorithm?.toString()}</td>
 
             </tr>
 
