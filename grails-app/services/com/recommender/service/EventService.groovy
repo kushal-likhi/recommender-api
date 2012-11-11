@@ -71,8 +71,8 @@ class EventService implements InitializingBean {
 
     void afterPropertiesSet() {
         mongo = new Mongo(
-                'localhost',
-                27017
+                grailsApplication.config.grails.mongo.host as String,
+                grailsApplication.config.grails.mongo.port as Integer
         )
     }
 }
