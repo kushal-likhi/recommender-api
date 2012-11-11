@@ -1,6 +1,6 @@
 package com.recommender.dto
 
 class ApplicationDataDto {
-    String value
-    Integer weight
+    Long value
+    Float weight
 }

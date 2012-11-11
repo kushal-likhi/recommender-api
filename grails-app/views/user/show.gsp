@@ -15,31 +15,11 @@
         <div class="bheadl"></div>
 
         <div class="bheadr"></div>
-
-        <h2><g:message code="default.show.label" args="[entityName]"/></h2>
-        <ul>
-            <li><g:link class="create" action="create">Add User</g:link></li>
-        </ul>
     </div>
 
     <div class="block_content">
         <table cellpadding="0" cellspacing="0" width="100%">
             <tbody>
-
-            <tr class="prop">
-                <td valign="top" class="name"><g:message code="user.applications.label" default="Applications"/></td>
-
-                <td valign="top" style="text-align: left;" class="value">
-                    <ul>
-                        <g:each in="${userInstance.applications}" var="a">
-                            <li><g:link controller="application" action="show"
-                                        id="${a.id}">${a?.encodeAsHTML()}</g:link></li>
-                        </g:each>
-                    </ul>
-                </td>
-
-            </tr>
-
             <tr class="prop">
                 <td valign="top" class="name"><g:message code="user.email.label" default="Email"/></td>
 
@@ -47,12 +27,7 @@
 
             </tr>
 
-            <tr class="prop">
-                <td valign="top" class="name"><g:message code="user.enabled.label" default="Enabled"/></td>
 
-                <td valign="top" class="value"><g:formatBoolean boolean="${userInstance?.enabled}"/></td>
-
-            </tr>
 
             <tr class="prop">
                 <td valign="top" class="name"><g:message code="user.firstName.label" default="First Name"/></td>
@@ -65,6 +40,34 @@
                 <td valign="top" class="name"><g:message code="user.lastName.label" default="Last Name"/></td>
 
                 <td valign="top" class="value">${fieldValue(bean: userInstance, field: "lastName")}</td>
+
+            </tr>
+
+            <tr class="prop">
+                <td valign="top" class="name"><g:message code="user.isAdmin.label" default="Admin"/></td>
+
+                <td valign="top" class="value">${fieldValue(bean: userInstance, field: "isAdmin")}</td>
+
+            </tr>
+
+            <tr class="prop">
+                <td valign="top" class="name"><g:message code="user.enabled.label" default="Enabled"/></td>
+
+                <td valign="top" class="value"><g:formatBoolean boolean="${userInstance?.enabled}"/></td>
+
+            </tr>
+
+            <tr class="prop">
+                <td valign="top" class="name"><g:message code="user.applications.label" default="Applications"/></td>
+
+                <td valign="top" style="text-align: left;" class="value">
+                    <ul>
+                        <g:each in="${userInstance.applications}" var="a">
+                            <li><g:link controller="application" action="show"
+                                        id="${a.id}">${a?.name}</g:link></li>
+                        </g:each>
+                    </ul>
+                </td>
 
             </tr>
 

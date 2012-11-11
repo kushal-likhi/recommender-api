@@ -1,10 +1,13 @@
 package com.recommender.domain
 
+import com.recommender.dto.ApplicationStatsDto
+
 class UserController {
 
     def beforeInterceptor = [action: this.&auth]
 
     def userService
+    def applicationService
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST", createUser: 'POST', updateProfile: 'POST']
 
@@ -28,7 +31,7 @@ class UserController {
     def updateProfile = {
         User userInstance = request.loggedInUser
         if (userInstance) {
-            bindData(userInstance, params, ['id', 'email','password'])
+            bindData(userInstance, params, ['id', 'email', 'password'])
             userInstance.password = params.password?.encodeAsSHA256()
             if (params.password && userInstance.validate() && userInstance.save(flush: true)) {
                 flash.message = "Updated Profile Successfully"
@@ -48,7 +51,13 @@ class UserController {
 
     def dashBoard = {
         User loggedInUser = request.loggedInUser
-        [loggedInUser: loggedInUser, apps: loggedInUser.applications]
+        List appStats = applicationService.getAppiclationsDataStats(loggedInUser)
+        Map wholeApplsStats = ['Total Succesful hits': appStats*.savedHits.findAll()?.sum(), "Total Failed Hits": appStats*.failedHits.findAll()?.sum(), "Total Recived Hits": appStats*.receivedHits.findAll()?.sum()]
+        Map wholeAppsComapreStats = [:]
+        appStats.each {ApplicationStatsDto applicationStatsDto ->
+            wholeAppsComapreStats[applicationStatsDto.name] = applicationStatsDto.totalHits()
+        }
+        [wholeAppsComapreStats: wholeAppsComapreStats, wholeApplsStats: wholeApplsStats]
     }
 
     def index = {
@@ -68,7 +77,8 @@ class UserController {
 
     def save = {
         def userInstance = new User(params)
-        if (userInstance.save(flush: true)) {
+        userInstance.password = params.password?.encodeAsSHA256()
+        if (params.password && userInstance.save(flush: true)) {
             flash.message = "${message(code: 'default.created.message', args: [message(code: 'user.label', default: 'User'), userInstance])}"
             redirect(action: "show", id: userInstance.id)
         }
@@ -111,8 +121,13 @@ class UserController {
                     return
                 }
             }
+            String password = userInstance.password
             userInstance.properties = params
-            if (!userInstance.hasErrors() && userInstance.save(flush: true)) {
+            userInstance.password = password
+            if (password != params.password) {
+                userInstance.password = params.password?.encodeAsSHA256()
+            }
+            if (params.password && !userInstance.hasErrors() && userInstance.save(flush: true)) {
                 flash.message = "${message(code: 'default.updated.message', args: [message(code: 'user.label', default: 'User'), userInstance])}"
                 redirect(action: "show", id: userInstance.id)
             }

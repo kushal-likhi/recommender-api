@@ -16,10 +16,8 @@
 
         <div class="bheadr"></div>
 
-        <h2><g:message code="default.list.label" args="[entityName]"/></h2>
-
         <ul>
-            <li><g:link class="create" action="create">Add User</g:link></li>
+            <li><g:link class="create" action="create">Create User</g:link></li>
         </ul>
     </div>
 

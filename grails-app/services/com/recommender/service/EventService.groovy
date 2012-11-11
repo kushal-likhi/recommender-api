@@ -27,7 +27,7 @@ class EventService implements InitializingBean {
     void handleMessage(String message) {
         def data = JSON.parse(message)
         try {
-            saveEvent(data?.source, data?.target, data?.weight, data?.appId)
+            saveEvent(data?.source?.toLong(), data?.target?.toLong(), data?.weight?.toString()?.toFloat(), data?.appId)
             redisService.withSingleConnection {
                 incr(RedisKeyBuilder.buildEventSavedKey(data?.appId))
             }
@@ -42,15 +42,15 @@ class EventService implements InitializingBean {
         }
     }
 
-    boolean saveEvent(String source, String target, Integer weight, String appId) {
+    boolean saveEvent(Long source, Long target, Float weight, String appId) {
         if (source && target && weight && appId) {
             Map event = findPreviousEntry(source, target, weight, appId)
             DBCollection collection = fetchEventCollectionForApp(appId)
             BasicDBObject object = new BasicDBObject()
             object.put("_id", event ? event.id : new ObjectId())
-            object.put("source", source)
-            object.put("target", target)
-            object.put("weight", event ? event.weight + weight : weight)
+            object.put("user_id", source)
+            object.put("item_id", target)
+            object.put("preference", event ? event.weight + weight : weight)
             collection.save(object)
         } else throw new Exception("Some event details are invalid")
         return true
@@ -61,11 +61,11 @@ class EventService implements InitializingBean {
         db.getCollection("events_${appId}")
     }
 
-    Map findPreviousEntry(String source, String target, Integer weight, String appId) {
+    Map findPreviousEntry(Long source, Long target, Float weight, String appId) {
         DBCollection collection = fetchEventCollectionForApp(appId)
         BasicDBObject object = new BasicDBObject()
-        object.put("source", source)
-        object.put("target", target)
+        object.put("user_id", source)
+        object.put("item_id", target)
         collection.findOne(object)?.toMap()
     }
 
