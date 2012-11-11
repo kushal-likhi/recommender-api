@@ -48,9 +48,9 @@ class EventService implements InitializingBean {
             DBCollection collection = fetchEventCollectionForApp(appId)
             BasicDBObject object = new BasicDBObject()
             object.put("_id", event ? event.id : new ObjectId())
-            object.put("source", source)
-            object.put("target", target)
-            object.put("weight", event ? event.weight + weight : weight)
+            object.put("user_id", source)
+            object.put("item_id", target)
+            object.put("preference", event ? event.weight + weight : weight)
             collection.save(object)
         } else throw new Exception("Some event details are invalid")
         return true
@@ -71,8 +71,8 @@ class EventService implements InitializingBean {
 
     void afterPropertiesSet() {
         mongo = new Mongo(
-                grailsApplication.config.grails.mongo.host as String,
-                grailsApplication.config.grails.mongo.port as Integer
+                'localhost',
+                27017
         )
     }
 }

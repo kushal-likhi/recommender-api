@@ -5,8 +5,8 @@ enum AlgorithmType {
     PearsonCorrelationSimilarity("PearsonCorrelationSimilarity"),
     EuclideanDistanceSimilarity("EuclideanDistanceSimilarity"),
     LogLikelihoodSimilarity("LogLikelihoodSimilarity"),
-    SlopeOneRecommender("SlopeOneRecommender")
-
+    SLOPEONE("SLOPEONE"),
+    SVD("SVD")
     String value;
 
     AlgorithmType(String value) {
@@ -14,7 +14,7 @@ enum AlgorithmType {
     }
 
     public static List list() {
-        [PearsonCorrelationSimilarity, EuclideanDistanceSimilarity, LogLikelihoodSimilarity, SlopeOneRecommender]
+        [PearsonCorrelationSimilarity, EuclideanDistanceSimilarity, LogLikelihoodSimilarity, SLOPEONE,SVD]
     }
 
 }

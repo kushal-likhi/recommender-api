@@ -13,7 +13,7 @@ class BootStrap {
             case GrailsApplication.ENV_TEST:
             case 'qa':
                 Mongo m = new Mongo()
-                m.dropDatabase("recommender-api")
+//                m.dropDatabase("recommender-api")
                 break;
             case GrailsApplication.ENV_PRODUCTION:
                 break;
