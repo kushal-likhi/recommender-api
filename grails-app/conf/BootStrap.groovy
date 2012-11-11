@@ -8,7 +8,7 @@ class BootStrap {
     def init = { servletContext ->
 
         //To Create And Drop the database
-        switch (GrailsUtil.environment) {
+      /*  switch (GrailsUtil.environment) {
             case GrailsApplication.ENV_DEVELOPMENT:
             case GrailsApplication.ENV_TEST:
             case 'qa':
@@ -17,15 +17,17 @@ class BootStrap {
                 break;
             case GrailsApplication.ENV_PRODUCTION:
                 break;
-        }
+        }*/
 
-        new User(
-                email: "kushal@intelligrape.com",
-                enabled: true,
-                firstName: "Kushal",
-                lastName: "Likhi",
-                password: "yo".encodeAsSHA256()
-        ).save()
+        if (!User.collection.findOne([email: "kushal@intelligrape.com"])) {
+            new User(
+                    email: "kushal@intelligrape.com",
+                    enabled: true,
+                    firstName: "Kushal",
+                    lastName: "Likhi",
+                    password: "yo".encodeAsSHA256()
+            ).save()
+        }
 
     }
 

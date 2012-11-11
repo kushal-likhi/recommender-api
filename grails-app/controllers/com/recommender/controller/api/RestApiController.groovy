@@ -61,7 +61,7 @@ class RestApiController {
 
     /*
     Needs Secret key in header "auth-secret"
-    Data in params, JSON of [source, count]
+    Data in params, source, count
     appId in url
      */
     def recommend(String appId, String source, Integer count) {
@@ -74,7 +74,7 @@ class RestApiController {
                 if (application.secretKey.equals(key)) {
                     if (source && count) {
                         respMessage = ([recommendations: recommendationService.recommend(source,count,appId)] as JSON)
-                        respCode = 201
+                        respCode = 200
                         redisService.withSingleConnection {
                             incr(RedisKeyBuilder.buildRecommendationRequestKey(appId))
                         }
