@@ -25,6 +25,8 @@
             <tr>
                 <g:sortableColumn property="algorithm"
                                   title="${message(code: 'application.name.label', default: 'Name')}"/>
+                <g:sortableColumn property="id"
+                                  title="${message(code: 'application.appKey.label', default: 'App Key')}"/>
                 <g:sortableColumn property="algorithm"
                                   title="${message(code: 'application.algorithm.label', default: 'Algorithm')}"/>
 
@@ -40,6 +42,7 @@
                 <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
                     <td><g:link action="show"
                                 id="${applicationInstance.id}">${fieldValue(bean: applicationInstance, field: "name")}</g:link></td>
+                    <td>${fieldValue(bean: applicationInstance, field: "id")}</td>
                     <td>${fieldValue(bean: applicationInstance, field: "algorithm")}</td>
 
                     <td>${fieldValue(bean: applicationInstance, field: "secretKey")}</td>

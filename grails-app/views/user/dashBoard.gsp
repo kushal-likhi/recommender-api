@@ -15,7 +15,7 @@
                 ['Target', 'Total Weightages']
                 <g:each in="${wholeApplsStats}" status="i" var="map">
                 ,
-                ["${map.key}", ${map.value}]
+                ["${map.key}", ${map.value?:0}]
                 </g:each>
             ]);
 
@@ -31,7 +31,7 @@
                 ['Target', 'Total Weightages']
                 <g:each in="${wholeAppsComapreStats}" status="i" var="map">
                 ,
-                ["${map.key}", ${map.value}]
+                ["${map.key}", ${map.value?:0}]
                 </g:each>
             ]);
 

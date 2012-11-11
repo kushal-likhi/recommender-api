@@ -16,7 +16,7 @@ class ApplicationService {
         Map result = [:]
         List applicationDataDtos = applicationTableData(application)
         Map applicationStatsData = applicationDataDtos.groupBy {it.value}
-        applicationStatsData?.keySet()?.each { String key ->
+        applicationStatsData?.keySet()?.each { Long key ->
             result[key] = applicationStatsData[key]*.weight.sum()
         }
         return result
@@ -28,7 +28,7 @@ class ApplicationService {
         List list = []
         while (cur && cur.hasNext()) {
             Map props = cur.next().toMap()
-            list.add(new ApplicationDataDto(value: props.target, weight: props.weight.toInteger()))
+            list.add(new ApplicationDataDto(value: props.item_id?.toLong(), weight: props.preference?.toFloat()))
         }
         list
     }

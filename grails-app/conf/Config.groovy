@@ -109,9 +109,10 @@ rabbitmq {
     connectionfactory {
         username = 'guest'
         password = 'guest'
-        hostname = 'localhost'
+        hostname = '127.0.0.1'
     }
     queues = {
         unsavedEvents autoDelete: false, durable: true, exclusive: false
     }
 }
+rabbitmq.retryPolicy.maxAttempts = 3
