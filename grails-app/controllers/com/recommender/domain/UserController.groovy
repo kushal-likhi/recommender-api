@@ -28,8 +28,9 @@ class UserController {
     def updateProfile = {
         User userInstance = request.loggedInUser
         if (userInstance) {
-            bindData(userInstance, params, ['id', 'email'])
-            if (userInstance.validate() && userInstance.save(flush: true)) {
+            bindData(userInstance, params, ['id', 'email','password'])
+            userInstance.password = params.password?.encodeAsSHA256()
+            if (params.password && userInstance.validate() && userInstance.save(flush: true)) {
                 flash.message = "Updated Profile Successfully"
                 redirect(action: "dashBoard")
                 return
