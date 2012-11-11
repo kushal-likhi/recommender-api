@@ -1,7 +1,7 @@
 grails {
     mongo {
 
-        host = "127.0.0.1"
+        host = "localhost"
         port = 27017
 //        username = "blah"
 //        password = "blah"

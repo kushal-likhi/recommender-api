@@ -74,7 +74,7 @@ class SecurityController {
     }
 
     def mainPageRelay() {
-        if (request.currentUser) redirect(uri: '/dashboard')
+        if (request.loggedInUser) redirect(uri: '/dashboard')
         render(view: "/index")
     }
 
