@@ -50,16 +50,43 @@
         <div class="bheadl"></div>
 
         <div class="bheadr"></div>
+
+        <h1>Activity</h1>
     </div>
 
     <div class="block_content">
-        <div id="chart_div_Apps_stats" style="border-bottom: 1px dotted gray;">
+        <table width="100%">
+            <tr>
+                <td width="80%">
+                    <div id="chart_div_Apps_stats">
 
-        </div>
+                    </div>
+                </td>
+                <td width="20%" style="text-align: left">
+                    <div>
+                        <g:each in="${wholeApplsStats}" status="i" var="map">
+                            ${map.key} :  ${map.value ?: 0} <br/>
+                        </g:each>
+                    </div>
+                </td>
 
-        <div id="chart_div_Whole_Compare">
+            </tr>
+            <tr>
+                <td width="80%">
+                    <div id="chart_div_Whole_Compare">
 
-        </div>
+                    </div>
+                </td>
+                <td width="20%">
+                    <div>
+                        <g:each in="${wholeAppsComapreStats}" status="i" var="map">
+                            ${map.key} : ${map.value ?: 0} Hits<br/>
+                        </g:each>
+                    </div>
+                </td>
+
+            </tr>
+        </table>
 
     </div>
 
