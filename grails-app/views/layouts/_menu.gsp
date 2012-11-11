@@ -6,7 +6,7 @@
     <h1><g:link controller="user" action="dashBoard">Dashboard</g:link>&nbsp;</h1>
     <ul id="nav">
         <li>
-            <g:link controller="application" action="Stats">Stats</g:link>
+            <g:link controller="application" action="stats">Stats</g:link>
         </li>
         <li>
             <g:link controller="application" action="list">Applications</g:link>

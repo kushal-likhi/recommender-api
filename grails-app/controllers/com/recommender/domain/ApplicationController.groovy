@@ -1,6 +1,11 @@
 package com.recommender.domain
 
+import org.apache.commons.lang.RandomStringUtils
+import com.recommender.dto.ApplicationStatsDto
+
 class ApplicationController {
+
+    def applicationService
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
@@ -9,7 +14,9 @@ class ApplicationController {
     }
 
     def stats = {
-
+        User loggedInUser = request.loggedInUser
+        List appStats =  applicationService.getAppiclationsDataStats(loggedInUser)
+        [appStats:appStats]
     }
 
     def list = {
@@ -53,7 +60,7 @@ class ApplicationController {
             redirect(action: "list")
         }
         else {
-            [applicationInstance: applicationInstance]
+            [applicationInstance: applicationInstance,statsDataMap:applicationService.getAppStatsData(applicationInstance) ]
         }
     }
 

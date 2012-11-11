@@ -1,10 +1,13 @@
 package com.recommender.domain
 
+import com.recommender.dto.ApplicationStatsDto
+
 class UserController {
 
     def beforeInterceptor = [action: this.&auth]
 
     def userService
+    def applicationService
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST", createUser: 'POST', updateProfile: 'POST']
 
@@ -28,8 +31,9 @@ class UserController {
     def updateProfile = {
         User userInstance = request.loggedInUser
         if (userInstance) {
-            bindData(userInstance, params, ['id', 'email'])
-            if (userInstance.validate() && userInstance.save(flush: true)) {
+            bindData(userInstance, params, ['id', 'email','password'])
+            userInstance.password = params.password?.encodeAsSHA256()
+            if (params.password && userInstance.validate() && userInstance.save(flush: true)) {
                 flash.message = "Updated Profile Successfully"
                 redirect(action: "dashBoard")
                 return
@@ -47,7 +51,13 @@ class UserController {
 
     def dashBoard = {
         User loggedInUser = request.loggedInUser
-        [loggedInUser: loggedInUser, apps: loggedInUser.applications]
+        List appStats =  applicationService.getAppiclationsDataStats(loggedInUser)
+        Map wholeApplsStats=['Total Succesful hits':appStats*.savedHits.findAll()?.sum(),"Total Failed Hits":appStats*.failedHits.findAll()?.sum(),"Total Recived Hits":appStats*.receivedHits.findAll()?.sum()]
+        Map wholeAppsComapreStats=[:]
+        appStats.each {ApplicationStatsDto applicationStatsDto ->
+            wholeAppsComapreStats[applicationStatsDto.name]=applicationStatsDto.totalHits()
+        }
+        [wholeAppsComapreStats:wholeAppsComapreStats,wholeApplsStats:wholeApplsStats]
     }
 
     def index = {

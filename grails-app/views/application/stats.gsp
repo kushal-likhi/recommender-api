@@ -6,6 +6,27 @@
     <meta name="layout" content="main"/>
     <g:set var="entityName" value="${message(code: 'application.label', default: 'Application')}"/>
     <title><g:message code="default.create.label" args="[entityName]"/></title>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+        google.load("visualization", "1", {packages:["corechart"]});
+        google.setOnLoadCallback(drawChart);
+        function drawChart() {
+        <g:each in="${appStats?.sort{it.name}}" var="applicationStatsDto" status="i">
+            var applicationStatsDtoData${i} = google.visualization.arrayToDataTable([
+                ['Target', 'Total Weightages'],
+                ["Saved Hits", ${(applicationStatsDto.savedHits)?:0}],
+                ["Failed Hits", ${(applicationStatsDto.failedHits)?:0}],
+                ["Received Hits", ${(applicationStatsDto.receivedHits)?:0}]
+
+            ]);
+            var applicationStatsDtoOptions${i} = {
+                title:'${applicationStatsDto.name} app activities'
+            };
+            var applicationStatsDtoChart${i} = new google.visualization.PieChart(document.getElementById('chart_div${i}'));
+            applicationStatsDtoChart${i}.draw(applicationStatsDtoData${i}, applicationStatsDtoOptions${i});
+        </g:each>
+        }
+    </script>
 </head>
 
 <body>
@@ -19,8 +40,22 @@
     </div>
 
     <div class="block_content">
-        Applications Count : 'Test'<br/><br/>
-        Applications Count2  : "test"
+        <g:each in="${appStats?.sort {it.name}}" var="applicationStatsDto" status="i">
+            <g:if test="${applicationStatsDto?.totalHits()}">
+                <div style="border-bottom: 1px dotted gray;margin-left: 3px;">
+                    <div id="chart_div${i}">
+
+                    </div>
+
+                    <div style="margin-left: 20px;">
+                        App key : <g:link controller="application" action="show">${applicationStatsDto.id}</g:link><br/>
+                        App secretKey : ${applicationStatsDto.secretKey}
+
+                    </div>
+                </div>
+            </g:if>
+
+        </g:each>
     </div>
 
     <div class="bendl"></div>
