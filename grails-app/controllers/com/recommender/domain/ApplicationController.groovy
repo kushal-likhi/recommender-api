@@ -1,6 +1,10 @@
 package com.recommender.domain
 
+import org.apache.commons.lang.RandomStringUtils
+
 class ApplicationController {
+
+    def applicationService
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
@@ -53,7 +57,7 @@ class ApplicationController {
             redirect(action: "list")
         }
         else {
-            [applicationInstance: applicationInstance]
+            [applicationInstance: applicationInstance,statsDataMap:applicationService.getAppStatsData(applicationInstance) ]
         }
     }
 

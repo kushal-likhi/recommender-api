@@ -5,7 +5,30 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="layout" content="main"/>
     <g:set var="entityName" value="${message(code: 'application.label', default: 'Application')}"/>
-    <title><g:message code="default.show.label" args="[entityName]"/></title>
+    <title><g:message code="default.show.label" args="[applicationInstance?.name]"/></title>
+    <g:if test="${statsDataMap}">
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <script type="text/javascript">
+            google.load("visualization", "1", {packages:["corechart"]});
+            google.setOnLoadCallback(drawChart);
+            function drawChart() {
+                var data = google.visualization.arrayToDataTable([
+                    ['Target', 'Total Weightages']
+                    <g:each in="${statsDataMap}" status="i" var="map">
+                    ,
+                    ["${map.key}", ${map.value}]
+                    </g:each>
+                ]);
+
+                var options = {
+                    title:'${applicationInstance.name} Activities'
+                };
+
+                var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+                chart.draw(data, options);
+            }
+        </script>
+    </g:if>
 </head>
 
 <body>
@@ -72,6 +95,15 @@
 
             </tbody>
         </table>
+        <g:if test="${statsDataMap}">
+            <div id="chart_div" style="width: 900px; height: 500px;">
+            </div>
+        </g:if>
+        <g:else>
+            <div style="margin-left: 40px;margin-bottom: 10px">
+                No Data Available
+            </div>
+        </g:else>
 
         <div class="buttons">
             <p>
