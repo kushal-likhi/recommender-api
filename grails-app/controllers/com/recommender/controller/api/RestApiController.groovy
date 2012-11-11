@@ -73,7 +73,7 @@ class RestApiController {
             if (application) {
                 if (application.secretKey.equals(key)) {
                     if (source && count) {
-                        respMessage = ([recommendations: recommendationService.recommend(source,count,appId)] as JSON)
+                        respMessage = ([recommendations: recommendationService.recommend(appId,source,count.toString())] as JSON)
                         respCode = 201
                         redisService.withSingleConnection {
                             incr(RedisKeyBuilder.buildRecommendationRequestKey(appId))

@@ -13,8 +13,7 @@ class AppHitCo {
     String noOfRecommendations
 
     Application getApplication() {
-        Application application = Application.get((new ObjectId(appId)) )
-        (application && application.secretKey == secretKey) ? application : null
+        return Application.get((new ObjectId(appId)) )
     }
 
     Integer getNoOfRecommendations(){
