@@ -24,7 +24,8 @@ class BootStrap {
                 enabled: true,
                 firstName: "Kushal",
                 lastName: "Likhi",
-                password: "yo".encodeAsSHA256()
+                password: "yo".encodeAsSHA256(),
+                isAdmin: true
         ).save()
 
     }
