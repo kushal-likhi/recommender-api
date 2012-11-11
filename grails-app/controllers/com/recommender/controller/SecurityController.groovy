@@ -3,6 +3,7 @@ package com.recommender.controller
 import com.recommender.domain.User
 import com.recommender.security.StatelessSecurity
 import cr.co.arquetipos.crypto.Blowfish
+import org.bson.types.ObjectId
 
 class SecurityController {
 
@@ -48,17 +49,28 @@ class SecurityController {
     def activate(String token, String auth) {
         String email = Blowfish.decryptBase64(auth, new String(token.decodeBase64()).encodeAsSHA256())
         if (email.equals(new String(token.decodeBase64()))) {
-            User user = User.collection.findOne(email: email)
+            User user = User.collection.findOne(email: email) as User
             if (user && !user.enabled) {
-                user.enabled = true
-                user.save(flush: true)
-                use(StatelessSecurity) {request.createSessionForUser(response, user.id.toString())}
-                flash.message = "Welcome! Your profile has been activated please change your password "
-                redirect(controller: 'user', action: 'editProfile')
-                return
+                return [id: user.id, token: Blowfish.encryptBase64((new Date().getTime() + (10 * 60 * 1000)).toString(), user.id.toString())]
             }
         }
         redirect(uri: '/')
+    }
+
+    def activationComplete(String password, String userId, String token) {
+        try {
+            Long time = (Blowfish.decryptBase64(token, userId)).toLong()
+            if (time < new Date().getTime()) throw new Exception("Token expired")
+            User user = User.get(new ObjectId(userId))
+            user.enabled = true
+            user.password = password.encodeAsSHA256()
+            user.save(flush: true)
+            use(StatelessSecurity) {request.createSessionForUser(response, user.id.toString())}
+            redirect(controller: 'user', action: 'dashBoard')
+        } catch (exception) {
+            log.error(exception.message)
+            redirect(uri: '')
+        }
     }
 
     def mainPageRelay() {
