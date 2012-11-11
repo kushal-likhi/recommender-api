@@ -36,7 +36,7 @@ class SecurityController {
         ).save()) {
             ourMailService.sendMail(email, "Account Activation Link", "authLink", [
                     name: "${firstName} ${lastName}",
-                    link: "${createLink(controller: 'security', action: 'activate', params: [token: email.encodeAsBase64(), auth: Blowfish.encryptBase64(email, email.encodeAsSHA256())])}"
+                    link: "${createLink(controller: 'security', action: 'activate', params: [token: email.encodeAsBase64(), auth: Blowfish.encryptBase64(email, email.encodeAsSHA256())], absolute: true)}"
             ])
             flash.userCreateMessage = g.render(template: '/security/createdAccount')
         } else {
@@ -50,7 +50,12 @@ class SecurityController {
         if (email.equals(new String(token.decodeBase64()))) {
             User user = User.collection.findOne(email: email)
             if (user && !user.enabled) {
-                return [id: user.id]
+                user.enabled = true
+                user.save(flush: true)
+                use(StatelessSecurity) {request.createSessionForUser(response, user.id.toString())}
+                flash.message = "Welcome! Your profile has been activated please change your password "
+                redirect(controller: 'user', action: 'editProfile')
+                return
             }
         }
         redirect(uri: '/')
