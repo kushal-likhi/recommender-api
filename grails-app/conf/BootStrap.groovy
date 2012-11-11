@@ -28,6 +28,7 @@ class BootStrap {
                     password: "yo".encodeAsSHA256()
             ).save()
         }
+    }
 
     def destroy = {
     }
